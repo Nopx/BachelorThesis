@@ -1,0 +1,58 @@
+package JolleeB.BachelorT.Deprecated;
+
+import java.awt.Point;
+import java.awt.Transparency;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.ComponentColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import JolleeB.BachelorT.Utils.Conversion;
+
+public class Test {
+	public static int counter = 0;
+	public static void main(String args[]) throws Exception{
+		test(new File("Testbild.png"),100);
+		test(new File("Testbild2.png"),100);
+		test(new File("Testbild3.png"),100);
+	
+	}	
+	
+	public static void test(File inputFile, int runs) throws IOException{
+		BufferedImage bi = ImageIO.read(inputFile);
+		int height = bi.getHeight();
+		int width = bi.getWidth();
+		int[] rgbInt = new int[width*height];
+		byte[] rgbByte = new byte[0];
+		long time = System.nanoTime();
+//		for(int i =0; i < runs; i++){
+//			for(int y = 0; y < height; y++){
+//				for(int x =0; x <width; x++){
+//					rgbInt [y*width+x]=bi.getRGB(x, y);
+//				}
+//			}
+//		}
+		System.out.println("Picture size: "+width+"x"+height);
+		long timeTaken = System.nanoTime() - time;
+		System.out.println("Getting integer values took "+ ((double)timeTaken/(1000000*runs))+" ms");
+		time = System.nanoTime();
+		for(int i =0; i < runs; i++){
+			rgbByte = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
+		}
+		for(int i =0; i < runs; i++){
+			ColorModel cm = new ComponentColorModel(ColorModel.getRGBdefault().getColorSpace(), false, true, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
+	        DataBuffer dataBuf = new DataBufferByte(rgbByte, rgbByte.length);
+	        WritableRaster raster = Raster.createInterleavedRaster(dataBuf, width, height,width*3, 3, new int[]{2, 1, 0}, new Point());
+	        BufferedImage bi3 =new BufferedImage(cm, raster, false, null);
+		}
+		timeTaken = System.nanoTime()-time;
+		System.out.println("Getting byte values took "+ ((double)timeTaken/(1000000*runs))+" ms");
+	}
+}

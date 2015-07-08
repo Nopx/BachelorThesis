@@ -1,0 +1,20 @@
+https://www.youtube.com/watch?v=e_WBuBqS9h8 30 minutes Cars passing by
+von jedem Pixel ein zeitliches Histogramm erstellt, für jeden Pixel den höchsten Wert des Histogramms eingesetzt
+	-> Hintergrundbild
+
+Nachteile:
+	-Kamera war unbewegt
+	-Ergebnisbild ist unbewegt
+	-Kanäle werden unabhängig voneinander zum endbild zugelassen oder nicht
+		.> nicht die originalen Farben sondern nur die originalen Kanalwerte
+
+Verbesserungsversuch: Mehr als einen top wert hinzufügen 
+	-> Macht fast keinen bemerkbaren Unterschied
+
+Verbesserungsvorschlag: Statt Kanälen, ganze Farben speichern
+	Problem: 256^3 = 16777216 -> Viel zu viele Möglichkeiten
+	-> Annehmen, dass pro Pixel nicht mehr als bestimmte Anzahl von 
+	Farben drankommen wird, z.B.(256) 
+		-In dem Beispiel ist die 257te Farbe bestimmt eh bewegt.
+	-> Oder Arraylist nehmen und einfach alle Farben speichern
+	->Farben kodieren und in Hashmap niederlegen

@@ -1,0 +1,18 @@
+package JolleeB.BachelorT.Algorithmen;
+
+public class Measurer {
+
+	private long startTime=System.currentTimeMillis();
+	private long memoryUsage =0;
+	private int measurements =0;
+	Runtime runtime = Runtime.getRuntime();
+	
+	public void startMeasurement(){
+		this.startTime=System.currentTimeMillis();
+	}
+	
+	public void measure(){
+		this.measurements++;
+		this.memoryUsage += runtime.totalMemory()-runtime.freeMemory();
+	}
+}

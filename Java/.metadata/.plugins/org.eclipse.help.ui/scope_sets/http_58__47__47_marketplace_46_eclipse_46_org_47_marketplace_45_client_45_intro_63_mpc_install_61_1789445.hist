@@ -1,0 +1,4 @@
+#Sat Jun 20 11:32:44 CEST 2015
+__DEFAULT__=false
+org.eclipse.help.ui.localSearch.master=true
+expression=http\://marketplace.eclipse.org/marketplace-client-intro?mpc_install\=1789445

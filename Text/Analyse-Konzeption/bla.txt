@@ -1,0 +1,3 @@
+Für jeden Pixel noch ein extra MOG erstellt aus den Nachbarpixeln
+Der Inputwert ist dabei der mean aus den werten der nachbarn (aber nicht dem Pixel selbst)
+Passt der wert selbst in das nachbar model, so wird der dominante wert ver mogs der nachbarn genommen (nicht des eigenen nachbar MOG) also wenn da mehr vordergrund ist, ist es vordergrund, wenn da mehr Hintergrund ist, ist da Hintergrund

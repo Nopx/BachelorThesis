@@ -1,0 +1,10 @@
+package JolleeB.BachelorT.Algorithmen;
+
+public class AlgorithmController {
+
+	private
+	
+	public byte[] gMM_Measured(){
+		
+	}
+}

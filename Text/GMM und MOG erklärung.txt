@@ -1,0 +1,8 @@
+Gaussian aktualisieren mit durch lernrate geteilt dannach normalisieren
+
+bei Mixture of Gaussians gibt es eine vorher festgelegte Zahl von Gaussian distributions
+Auch GMMs genannt
+wenn ein pixel in kein Model reinpasst, dann ist es Vordergrund und der unwahrscheinlichste
+GMM wird dorthin verschoben, indem der neue Wert sein neuer µ wird. Sobald der Gaussian 
+nicht mehr der Unwahrscheinlichste ist, werden die Pixel da drin als Hintergrund angesehen
+Wenn ein Pixel in GMMs passt, werden alle GMMs nach dem Pixel angepasst

@@ -1,0 +1,6 @@
+Array mit Pyramide machen
+	pyramide is floor(log2(breite))-1 hoch. weil man so oft teilen muss bis 
+								es zu klein is
+oberstes element berechnen
+element drunter berechnen:
+	ft is so anders, dass man die maske verschieben können muss bei jedem mal

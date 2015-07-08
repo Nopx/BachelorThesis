@@ -1,0 +1,56 @@
+package JolleeB.BachelorT.Algorithmen;
+
+import JolleeB.BachelorT.Utils.Conversion;
+
+public class SpatialGMMAnalyzer {
+	private int imgLength;
+	private int imgWidth;
+	private int imgHeight;
+	private float learningRate = 0.03f;
+	private float[] mean;
+	private float[] variance;
+	
+	public SpatialGMMAnalyzer(int imgWidth, int imgHeight){
+		this.imgLength = imgWidth*imgHeight;
+		this.imgHeight = imgHeight;
+		this.imgWidth = imgWidth;
+		this.mean = new float[imgLength];
+		this.variance = new float[imgLength];
+		for(int i =0; i <this.imgLength; i++){
+			this.mean[i] = 128;
+			this.variance[i] = 3;
+		}
+	}
+	
+	public byte[] convertImage(byte[] imgIn){
+		if(imgIn.length != imgLength) throw new IllegalArgumentException();
+		byte[] imgOut = new byte[imgLength];
+		int isForeground = 0;
+		for(int y = 0; y < this.imgHeight; y++){
+			for(int x =0; x < this.imgWidth; x++){
+				int pos = y*this.imgWidth+x;
+				int val = Conversion.byteToInt(imgIn[pos]);
+				for(int l =-3; l<=3; l+=3){
+					for(int k =-3; k<=3;k+=3){
+						int newY = y+l;
+						int newX = x+k;
+						if(newY <0)newY+=3;
+						if(newX <0)newX+=3;
+						if(newY >=this.imgHeight)newY-=3;
+						if(newX >=this.imgWidth)newX-=3;
+						int newPos = newY*this.imgWidth+newX;
+						isForeground += Math.abs(val-mean[newPos])>variance[newPos]?1:0;
+					}
+				}
+				//Update mean and variance values
+				mean[pos] = mean[pos] * (1-learningRate) + (learningRate * val);
+				variance[pos] = (float)Math.sqrt(variance[pos] * (1-learningRate) + (learningRate *(val-mean[pos])*(val-mean[pos])));
+				
+				//Update Pixel in new Picture
+				if(isForeground>4) imgOut[pos] = (byte)mean[pos];	
+				else imgOut[pos] = imgIn[pos];
+			}
+		}
+		return imgOut;
+	}
+}

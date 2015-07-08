@@ -1,0 +1,140 @@
+package JolleeB.BachelorT;
+
+public class MOGAnalyzer {
+	private int imgLength;
+	private float learningRate = 0.01f;
+	private float initialVariance = 300;
+	private float initialWeight = learningRate/2;
+	//TODO THIS DOES NOT MAKE MUCH DIFFERENCE
+	private float maxDistanceFactor = 0.5f;
+	//TODO this is implemented wrong
+	private float backgroundPercentage = initialWeight*30;
+	private int amountGaussian;
+	private float[][] mean;
+	private float[][] variance;
+	private float[][] weights;
+	private final float SQRT2PI = (float)Math.sqrt(2*Math.PI);
+	
+	public MOGAnalyzer(int imgLength, int amountGaussians){
+		this.imgLength = imgLength;
+		this.amountGaussian = amountGaussians;
+		this.mean = new float[amountGaussians][imgLength];
+		this.variance = new float[amountGaussians][imgLength];
+		this.weights = new float[amountGaussians][imgLength];
+		for(int i =0; i <imgLength; i++){
+			float varValue = initialVariance;
+			for(int k = 0; k < amountGaussians; k++){
+				this.variance[k][i] = varValue;
+				this.weights[k][i] = initialWeight;
+			}
+		}
+	}
+	
+	public byte[] convertImage(byte[] imgIn){
+		if(imgIn.length != this.imgLength) throw new IllegalArgumentException();
+		byte[] imgOut = new byte[this.imgLength];
+		for(int i = 0; i <this.imgLength; i++){
+			float[] probability = new float[amountGaussian];
+			int x = Conversion.byteToInt(imgIn[i]);
+			int matchedGaussian =-1;
+			float hightestVariance = 1000;
+			for(int k =0; k < this.amountGaussian; k++){
+				float kVariance = (float)Math.abs(x-mean[k][i]);
+				//Take first match to save time
+				if(kVariance < maxDistanceFactor*variance[k][i] && kVariance<hightestVariance){
+					matchedGaussian = k;
+					hightestVariance = kVariance;
+					break;
+				}
+			}
+			//Sort Gaussians by their ability to represent the background for later use
+			float[][] sortedGaussians = sortGaussians(i);
+			//If no match was found
+			if(matchedGaussian ==-1){
+				int leastWeighted = leastWeighted(i);
+				mean[leastWeighted][i] = x;
+				variance[leastWeighted][i] = initialVariance;
+				weights[leastWeighted][i] = initialWeight;
+				imgOut[i] = (byte)Math.floor(mean[(int)sortedGaussians[0][0]][i]);
+//				imgOut[i] = 70;
+			}
+			else{
+				//Calculate probability of belonging to this Gaussian distribution
+				//	Calculate exponent
+				probability[matchedGaussian] = hightestVariance*hightestVariance;
+				probability[matchedGaussian] /= -2*(variance[matchedGaussian][i]*variance[matchedGaussian][i]);
+				//	Calculate rest
+				probability[matchedGaussian] = (float)Math.pow(Math.E, probability[matchedGaussian]);
+				probability[matchedGaussian] /= variance[matchedGaussian][i]*SQRT2PI;
+				
+				for(int k = 0; k < amountGaussian; k++){
+					weights[k][i] = (1-learningRate)* weights[k][i];
+				}
+				//Update mean and variance values
+				weights[matchedGaussian][i] += learningRate;
+				probability[matchedGaussian]*= learningRate;
+				mean[matchedGaussian][i] = mean[matchedGaussian][i] * (1-probability[matchedGaussian]) + (probability[matchedGaussian] * x);
+				variance[matchedGaussian][i] = (float)Math.sqrt(variance[matchedGaussian][i] * (1-probability[matchedGaussian]) + (probability[matchedGaussian] *hightestVariance*hightestVariance));
+				
+				//See if matched gaussian belongs to back or foreground
+				boolean isBackground =false;
+				for(int k =0; k < amountGaussian; k++){
+					int index = (int)sortedGaussians[0][k];
+					if(matchedGaussian == index){
+						isBackground = true;
+						break;
+					}
+				}
+				
+				if(isBackground) imgOut[i] = imgIn[i];
+				else imgOut[i] = (byte)Math.floor(mean[(int)sortedGaussians[0][0]][i]);
+//				else imgOut[i] = -1;
+			}
+		}
+		return imgOut;
+	}
+	
+	/**
+	 * returns a 2D Array with the indexes on first Array and weights on 2nd
+	 * @param i
+	 * @return
+	 */
+	private float[][] sortGaussians(int i){
+		//Insertion sort is used
+		float[][] result = new float[2][amountGaussian];
+		float[] weights = new float[amountGaussian];
+		float addedWeights =0;
+		for(int k = 0; k < amountGaussian; k++){
+			weights[k] = this.weights[k][i]/variance[k][i];
+		}
+		for(int k =0; k < amountGaussian; k++){
+			result[1][k] = -1;
+		}
+		for(int l = 0; l< amountGaussian; l++){
+			float maxWeight = 0;
+			int maxIndex =0 ;
+			for(int k = 0; k < amountGaussian; k++){
+				if(weights[k] > maxWeight) {
+					maxWeight = weights[k];
+					maxIndex = k;
+				}
+			}
+			addedWeights+=maxWeight;
+			result[1][l] = maxWeight;
+			result[0][l] = maxIndex;
+			weights[maxIndex] =0;
+			if(addedWeights > backgroundPercentage) break;
+		}
+		return result;
+	}
+	
+	private int leastWeighted(int i){
+		int leastWeighted =0;
+		for(int k = 0; k < amountGaussian; k++){
+			if(weights[leastWeighted][i]> weights[k][i])
+				leastWeighted = k;
+		}
+		return leastWeighted;
+	}
+	
+}

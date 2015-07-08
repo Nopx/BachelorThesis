@@ -1,0 +1,22 @@
+package JolleeB.BachelorT.Utils;
+
+public class Conversion {
+
+	public static int byteToInt(byte in){
+		int out = in<0?in+255:in;
+		return out;
+	}
+	
+	public static float byteToFloat(byte in){
+		float out = in<0?in+255:in;
+		return out;
+	}
+	
+	public static int[] rgbToHsv(int r, int g, int b){
+		double rD = r/255; 
+		double gD = g/255; 
+		double bD = b/255; 
+		double min = rD<gD?rD:gD;
+		min = min<bD?min:bD;
+	}
+}

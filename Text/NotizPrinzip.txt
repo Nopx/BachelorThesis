@@ -1,0 +1,7 @@
+Pixel Einzel Check:
+Histogramm von zeitlich aufeinanderfolgenden pixeln
+	-> Aus histogramm werte ziehen, z.B. wie oft is der Pixelwert da, wie verteilt ist der Wert im Video
+	-NachbarPixel sollten auch ne rolle spielen
+
+Maximum von farben -> Histogramm mit 256^3 Möglichkeiten -> Viel zu viel
+	-> Range von werten möglich

@@ -1,0 +1,4 @@
+[1] http://profs.sci.univr.it/~cristanm/teaching/sar_files/lezione4/Piccardi.pdf 2.2 Temporal median filter
+[2]Antoine Vacavant, Thierry Chateau, Alexis Wilhelm and Laurent Lequièvre. A Benchmark Dataset for Foreground/Background Extraction. In ACCV 2012, Workshop: Background Models Challenge, LNCS 7728, 291-300. November 2012, Daejeon, Korea.
+[3]http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/AV0809/ORCHARD/ [08.07.15]
+[4]https://stat.duke.edu/~scs/Courses/Stat376/Papers/GibbsFieldEst/BesagDirtyPicsJRSSB1986.pdf [08.07.15] Julian Besag "On the Statistical Analysis of Dirty Pictures", pp.7

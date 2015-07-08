@@ -1,0 +1,6 @@
+1433154404444	Rename type 'DynamixFrameGetter'
+1433236054302	Delete element
+1433251463676	Rename local variable 'counter'
+1433251559886	Rename field 'frameNumber'
+1433251568871	Rename method 'getFrameNumber'
+1433251690532	Rename method 'getCurrentFrames'

@@ -1,0 +1,6 @@
+1432539084013	Rename local variable 'imgsOut'
+1432540272087	Rename local variable 'pixVidOut'
+1432540279667	Rename local variable 'framesInput'
+1432710699316	Rename local variable 'stepsize'
+1432711192668	Rename local variable 'returnInt'
+1432713762341	Rename method 'oneSearchStep'

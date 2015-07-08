@@ -1,0 +1,17 @@
+fx = 	[-1 1]
+	[-1 1] für 1. und 2. image -> 2x2 kernel
+
+fy =	[-1 -1]
+	[1   1] für 1. und 2. image -> 2x2 kernel
+
+ft =	[-1 -1]				[1 1]
+	[-1 -1] für erstes image und 	[1 1] für zweites image
+
+rechnen - minimieren: (fx*u + fy*v + ft)*fx + lambda*(u-avgOf4PixelAroundCenterU) =0
+rechnen - minimieren: (fx*u + fy*v + ft)*fy + lambda*(v-avgOf4PixelAroundCenterV) =0
+
+u = avgOf4PixelAroundCenterU - fx(P/D)
+v = avgOf4PixelAroundCenterV - fy(P/D)
+
+P = fx*avgOf4PixelAroundCenterU + fy*avgOf4PixelAroundCenterV + ft
+D = lambda + fx² + fy²

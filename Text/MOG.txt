@@ -1,0 +1,17 @@
+Bei Pixel schaun obs passt, wenns nirgends passt wird der unwahrscheinlichste geändert
+Weight wird so verändert (1-lernrate)*Altes Weight+lernrate*M
+	M ist dabei 1 für Models welche matchen und 0 für andere
+µ und var für unmatched gaussians bleiben gleich
+die anderen werden so geupdated: µ = (1-p)*altesµ+p*X
+var² = (1-p)*altVar²+
+wobei p = eigentliche probability* lernrate
+
+Was ist Hintergrund:
+Die Gausse werden geordnet nach (ihrem Gewicht/Ihre Varieanz) 
+Eine Zahl T wird festgelegt zwischen 0 und 1, die sagt wie viel prozent 
+der Hintergrund vom video ausmachen soll
+Die Obersten Gausse in der Liste sind Hintergrund, solange Die Summe ihrer Gewichte 
+T nicht überschreitet
+
+nach http://www.ai.mit.edu/projects/vsam/Publications/stauffer_cvpr98_track.pdf
+Stauffer

@@ -1,0 +1,4 @@
+Problem, Für 120 Frames schon 3GB Ram -> 
+Wenns über erlaubten speicehr geht, muss es in Hard Drive ausgelagert werden 
+-> ULLLTRA Langsam
+-> Lieber längere Schleifen und weniger speicher

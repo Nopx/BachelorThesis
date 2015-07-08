@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;JolleeB.BachelorT.FrameGetter.getMBs(...)&apos; to &apos;getRequiredSpace&apos;&#x0D;&#x0A;- Original project: &apos;BachelorT&apos;&#x0D;&#x0A;- Original element: &apos;JolleeB.BachelorT.FrameGetter.getMBs(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;JolleeB.BachelorT.FrameGetter.getRequiredSpace(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;getMBs&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src\/main\/java&lt;JolleeB.BachelorT{FrameGetter.java[FrameGetter~getMBs~QString;" name="getRequiredSpace" references="true" stamp="1434792558266" version="1.0"/>
+</session>

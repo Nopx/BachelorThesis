@@ -1,0 +1,54 @@
+package JolleeB.BachelorT.Deprecated;
+
+import JolleeB.BachelorT.ImageFormatingUtils;
+import JolleeB.BachelorT.VideoFlowUtils;
+
+public class Stabilizer {
+
+	int[] movement = new int[2];
+	
+	public byte[] stabilizeImage(byte[] imgIn1, byte[] imgIn2, int width, int height){
+		byte[] imgGray1 = ImageFormatingUtils.makeGrayScaleImage(imgIn1);
+		byte[] imgGray2 = ImageFormatingUtils.makeGrayScaleImage(imgIn2);
+		int[] movementNew = VideoFlowUtils.globalFlowThreeStepSearchAdvancedLowThreshold(imgGray1, imgGray2, width/3, height/3, 32, 32);
+		movement[0] += movementNew[0];
+		movement[1] += movementNew[1];
+		width*=3;
+		int length = width*height;
+		byte[] imgOut = new byte[length];
+		for(int y = 0; y < height; y++){
+			int pos = y*width;
+			for(int x = 0; x < width; x+=3){
+				int xOld = x+3*movement[0];
+				int yOld = y+3*movement[1];
+				int posOld = yOld*width+xOld;
+				byte value1;
+				byte value2;
+				byte value3;
+				if(posOld+2 >= length || posOld <0) {
+					value1 =-1;
+					value2 =-1;
+					value3 =-1;
+				}
+				else {
+					value1 = imgIn1[posOld];
+					value2 = imgIn1[posOld+1];
+					value3 = imgIn1[posOld+2];
+				}
+				if(xOld<0 || xOld >= width || yOld <0 || yOld >= height){
+					value1 =-1;
+					value2 =-1;
+					value3 =-1;
+				}
+				imgOut[pos+0]=value1;
+				imgOut[pos+1]=value2;
+				imgOut[pos+2]=value3;
+				pos+=3;
+			}
+		}
+		return imgOut;
+	}
+	
+	
+	
+}

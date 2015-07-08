@@ -1,0 +1,11 @@
+Video Tracking
+	Zu genau auf einzelne : Adaptive Particle Filter
+	Mean Shift
+	-Nutzlos fast, weil ich damit smoothness begrenzung und aparture problem hab
+		+ ich brauch die richtung usw eig. garnicht
+		+ lauter kleine bewegungen überall
+Bild Segmentierung
+
+Pixel rutschen zum entfernen und Anderes zum rausfinden was zu entfernen!!!!
+
+Vorraussetzung, dass was auch immer dahinter is vollständig sichtbar ist über zeit verteilt

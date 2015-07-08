@@ -1,0 +1,141 @@
+package JolleeB.BachelorT.Algorithmen;
+
+import java.io.File;
+
+import org.bytedeco.javacv.FrameGrabber.Exception;
+
+import JolleeB.BachelorT.DeEnCoding.DynamicFrameGetter;
+import JolleeB.BachelorT.DeEnCoding.DynamicVideoCreator;
+
+public class AlgorithmusController {
+
+	private Measurer measurer = new Measurer();
+	private String inputFileString; 
+	private String outputFileString; 
+	private DynamicFrameGetter fg;
+	private DynamicVideoCreator vc;
+	private int totalFrames;
+	private int frameCounter =0;
+	private int width;
+	private int height;
+	
+	private static final int MEDIANFRAMEAMOUNT =30;
+	private static final int SMOOTHINGFRAMEAMOUNT =30;
+	private static final int GMMFRAMEAMOUNT =1;
+	
+	public AlgorithmusController(String inputFileString, String outputFileString) throws Exception{
+		this.inputFileString = inputFileString;
+		this.outputFileString = outputFileString;
+	}
+	
+	public void start(String algorithmType,int gaussianAmount)throws IllegalArgumentException, Exception, org.bytedeco.javacv.FrameRecorder.Exception{
+		int frameAmount =1;
+		switch(algorithmType.toLowerCase()){
+		case AlgorithmNames.MEDIANNAME: 
+			frameAmount = MEDIANFRAMEAMOUNT;
+			break;
+		case AlgorithmNames.SMOOTHINGNAME:
+			frameAmount = SMOOTHINGFRAMEAMOUNT;
+			break;
+		case AlgorithmNames.GMMNAME:
+		case AlgorithmNames.MOGNAME:
+			frameAmount =GMMFRAMEAMOUNT;
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+    	File inputFile = new File(inputFileString);
+    	File outputFile = new File(outputFileString);
+		fg = new DynamicFrameGetter(inputFile, frameAmount);
+		vc = new DynamicVideoCreator(outputFile.getAbsolutePath(), fg.getWidth(), fg.getHeight(), fg.getFramerate());
+		vc.start();
+		totalFrames = fg.getFrameAmount();
+		width = fg.getWidth();
+		height = fg.getHeight();
+		
+		measurer.startMeasurement();
+		switch(algorithmType.toLowerCase()){
+			case AlgorithmNames.MEDIANNAME: 
+				median();
+				break;
+			case AlgorithmNames.SMOOTHINGNAME:
+				smoothing();
+				break;
+			case AlgorithmNames.GMMNAME:
+				gmm();
+				break;
+			case AlgorithmNames.MOGNAME:
+				mog(gaussianAmount);
+				break;
+		}
+	}
+	
+	private void printPercentage(){
+		if(frameCounter ==0){
+			System.out.println("0%");
+			return;
+		}
+		frameCounter++;
+		int percentage = (100*frameCounter/totalFrames);
+		if(percentage<10){
+			System.out.print("\b\b"+percentage+"%");
+		}
+		else{
+			System.out.print("\b\b\b"+percentage+"%");
+		}
+	}
+	
+	public void gmm(){
+		GMMAnalyzer analyzer = new GMMAnalyzer(3*width*height);
+		while(fg.hasFrames()){
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			frame = analyzer.convertImage(frame);
+			printPercentage();
+			vc.encodeBytes(frame);
+		}
+		stop();
+	}
+	
+	public void median(){
+		MedianAnalyzer analyzer = new MedianAnalyzer();
+		while(fg.hasFrames()){
+			byte[][] frames = fg.getNextFrames();
+			byte[] frame = analyzer.convertImages(frames);
+			printPercentage();
+			vc.encodeBytes(frame);
+		}
+		stop();
+	}
+	
+	public void smoothing(){
+		SmoothingAnalyzer analyzer = new SmoothingAnalyzer();
+		while(fg.hasFrames()){
+			byte[][] frames = fg.getNextFrames();
+			byte[] frame = analyzer.convertImages(frames);
+			printPercentage();
+			vc.encodeBytes(frame);
+		}
+		stop();
+	}
+	
+	public void mog(int gaussianAmount){
+		MOGAnalyzer analyzer = new MOGAnalyzer(3*width*height,gaussianAmount);
+		while(fg.hasFrames()){
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			frame = analyzer.convertImage(frame);
+			printPercentage();
+			vc.encodeBytes(frame);
+		}
+		stop();
+	}
+	
+	private void stop(){
+		try {
+			vc.stop();
+		} catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+			System.out.println("Failed to Stop Algorithm!");
+		}
+	}
+}

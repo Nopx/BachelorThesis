@@ -1,0 +1,16 @@
+BS+BI Datensets
+
+Es gibt einige im Internet kostenlos zur Verfügung stehende Datensets, welche in wissenschaftlichen Arbeiten bereits für BS/BI benutzt wurden. Dies sind einige Beispiele von Datensets, welche meine Wahl des genutzten Sets erläutern sollen. Alle Videos in diesen Datensets wurden mit stationären unbewegten Kameras aufgenommen, stellen aber verschiedene Materialien zur Verfügung. Die Materialien werden Stichpunktartig unter den Titeln der Sets aufgelistet: 
+
+1.Das Patch Based Background Initialization(PBI) Set University of Verona, Italy
+	-Videos mit bewegten Objekten
+	-Videos, welche das Ergebnis eigener BI/BS Algorithmen sind
+2.Das Stuttgart Artificial Background Subtraction Dataset University of Stuttgart, Germany
+	-Videos mit bewegten Objekten
+	-Alle Frames dieser Videos im PNG Format
+	-Binärbilder aller Frames, auf denen der Vordergrund zu sehen ist (siehe Abb.1) 	 im PNG Format
+3.ATON University of California, San Diego USA 
+	-Videos mit bewegten Objekten
+	-Bilder des manuell modellierten Hintergrundes der Videos im PNG Format
+
+In dieser Arbeit sollen verschiedene Algorithmen verglichen werden. Die Ergebnisse dieser Algorithmen sollen der modellierte Hintergrund des jeweiligen Videos sein. Mithilfe des ATON sets, lassen sich diese Algorithmen also am besten Testen und vergleichen.

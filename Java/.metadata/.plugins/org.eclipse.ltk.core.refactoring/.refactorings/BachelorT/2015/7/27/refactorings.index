@@ -1,0 +1,39 @@
+1435741809129	Rename local variable 'newVariance'
+1435741817621	Rename local variable 'newVariance2'
+1435757610836	Move compilation unit
+1435757617985	Move compilation unit
+1435757623565	Move compilation unit
+1435757636110	Move compilation unit
+1435757670682	Move compilation unit
+1435757795108	Move compilation unit
+1435757797630	Move compilation unit
+1435757801187	Move compilation unit
+1435757809817	Delete element
+1435757813801	Move compilation unit
+1435757817144	Move compilation unit
+1435757825908	Move compilation unit
+1435757835722	Delete element
+1435757863345	Move compilation unit
+1435757865881	Move compilation unit
+1435757886586	Move compilation unit
+1435757901416	Move compilation units
+1435759237808	Rename type 'GaussianAnalyzer'
+1435759474966	Delete element
+1435759929921	Delete element
+1435760893996	Delete element
+1435765253492	Move compilation unit
+1435767093954	Rename local variable 'gaussianAnalyzer'
+1435919589222	Rename local variable 'x'
+1435919666551	Rename local variable 'i'
+1435922794217	Rename local variable 'x1'
+1436010814452	Delete element
+1436011518694	Rename local variable 'x'
+1436011524701	Rename local variable 'i'
+1436011535763	Rename local variable 'x1'
+1436021693624	Rename local variable 'ownVal'
+1436024829219	Rename local variable 'x'
+1436027024670	Rename local variable 'isForeground'
+1436086527010	Rename local variable 'r'
+1436086531515	Rename local variable 'g'
+1436086535545	Rename local variable 'b'
+1436094009826	Rename method 'medianFilter'

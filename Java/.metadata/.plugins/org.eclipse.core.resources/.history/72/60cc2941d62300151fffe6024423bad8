@@ -1,0 +1,42 @@
+package JolleeB.BachelorT.Deprecated;
+
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import JolleeB.BachelorT.Utils.Conversion;
+
+public class Test {
+	public static int counter = 0;
+	public static void main(String args[]) throws Exception{
+		test(new File("Testbild.png"),100);
+		test(new File("Testbild2.png"),100);
+	
+	}	
+	
+	public static void test(File inputFile, int runs) throws IOException{
+		BufferedImage bi = ImageIO.read(inputFile);
+		int height = bi.getHeight();
+		int width = bi.getWidth();
+		long time = System.nanoTime();
+		for(int i =0; i < runs; i++){
+			for(int y = 0; y < height; y++){
+				for(int x =0; x <width; x++){
+					bi.getRGB(x, y);
+				}
+			}
+		}
+		System.out.println("Picture size: "+width+"x"+height);
+		long timeTaken = System.nanoTime() - time;
+		System.out.println("Getting integer values took "+ ((double)timeTaken/(1000000*runs))+" ms");
+		time = System.nanoTime();
+		for(int i =0; i < runs; i++){
+			((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
+		}
+		timeTaken = System.nanoTime()-time;
+		System.out.println("Getting byte values took "+ ((double)timeTaken/(1000000*runs))+" ms");
+	}
+}

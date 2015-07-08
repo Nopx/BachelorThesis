@@ -1,0 +1,9 @@
+package JolleeB.BachelorT.Algorithmen;
+
+public class AlgorithmMeasurer {
+
+	public long getTotalProcessingTime();
+	public long getAvgProcessingTime();
+	public long getAvgMemoryUsed();
+	public double getAvgCPUUsed();
+}

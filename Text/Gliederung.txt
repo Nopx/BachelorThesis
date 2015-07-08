@@ -1,0 +1,28 @@
+Einleitung
+	Ideenursprung / Ähnliche Arbeiten
+Grundlagen
+	Bibliotheken (JavaCV, Xuggler)
+Analyse
+	Pixelverarbeitungsansätze
+		Einzeln
+		Abhängig von nachbarn
+		-> Rauschen in Pixeln verhindern
+	Segmentierungsansätze
+		-VideoTracking
+	Bild-Splittungsansätze
+	Arbeit auf Leistung schreiben aber simpel halten
+Implementierung
+	Verschiedene Möglichkeiten wie es gemacht wurde + Vergleich von Rechenzeiten
+		-Mit Stabilisierung und anderen sachen vorne hinten / ohne
+		-Mit Bibliotheken usw. / ohne
+Ergebnis ^^^Implementierung
+Zusammenfassung
+Anhang
+
+Einleitung		1
+Grundlagen		2
+Verwandte Arbeiten
+Implementierung		4
+Methoden		4
+Vergleich		3
+Ergebnis		2
