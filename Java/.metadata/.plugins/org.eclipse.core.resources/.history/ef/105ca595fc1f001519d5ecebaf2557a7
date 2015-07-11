@@ -1,9 +1,0 @@
-package JolleeB.BachelorT.Algorithmen;
-
-public class Measurer {
-
-	private long startTime=System.currentTimeMillis();
-	private double cpuUsage =0;
-	private long memoryUsage =0;
-	private int measurements =0;
-}

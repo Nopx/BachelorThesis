@@ -1,9 +1,0 @@
-package JolleeB.BachelorT.Algorithmen;
-
-public interface AlgorithmMeasurer {
-
-	public long getTotalProcessingTime();
-	public long getAvgProcessingTime();
-	public long getAvgMemoryUsed();
-	public double getAvgCPUUsed();
-}

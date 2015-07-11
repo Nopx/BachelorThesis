@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="conditionHistory">
-		<item value="xxx == true" key="conditionHistoryEntry_8"/>
-		<item value="xxx = true" key="conditionHistoryEntry_9"/>
-		<item value="array[0] != array[49]" key="conditionHistoryEntry_6"/>
-		<item value="coordinatesBest[1] != block2y" key="conditionHistoryEntry_7"/>
+		<item value="coordinatesBest[1] != block2y" key="conditionHistoryEntry_8"/>
+		<item value="xxx == true" key="conditionHistoryEntry_9"/>
+		<item value="(pos+width+x+1)*2 &gt;= 25920" key="conditionHistoryEntry_6"/>
+		<item value="array[0] != array[49]" key="conditionHistoryEntry_7"/>
 		<item value="10" key="conditionHistoryEntryCount"/>
-		<item value="weights[k][i] &gt;1" key="conditionHistoryEntry_0"/>
-		<item value="probability &gt; 0.5" key="conditionHistoryEntry_1"/>
-		<item value="newVariance != 0.0" key="conditionHistoryEntry_4"/>
-		<item value="(pos+width+x+1)*2 &gt;= 25920" key="conditionHistoryEntry_5"/>
-		<item value="probability &gt;0.5" key="conditionHistoryEntry_2"/>
-		<item value="probability != 1" key="conditionHistoryEntry_3"/>
+		<item value="fieldOut[newPos] ==1f" key="conditionHistoryEntry_0"/>
+		<item value="weights[k][i] &gt;1" key="conditionHistoryEntry_1"/>
+		<item value="probability != 1" key="conditionHistoryEntry_4"/>
+		<item value="newVariance != 0.0" key="conditionHistoryEntry_5"/>
+		<item value="probability &gt; 0.5" key="conditionHistoryEntry_2"/>
+		<item value="probability &gt;0.5" key="conditionHistoryEntry_3"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.debug.ui.ExpressionInformationControlCreator$ExpressionInformationControl">
 		<item value="700" key="SashWeightTree"/>

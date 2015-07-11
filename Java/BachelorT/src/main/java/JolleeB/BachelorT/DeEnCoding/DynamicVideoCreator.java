@@ -24,12 +24,12 @@ public class DynamicVideoCreator {
 	private int width;
 	private int height;
 	
-	public DynamicVideoCreator(String fileLocation,int width,int height, double framerate){
+	public DynamicVideoCreator(String fileLocation,int width,int height, double framerate, String format){
 		this.width = width;
 		this.height = height;
 		creator = new FFmpegFrameRecorder(fileLocation,width,height);
 		creator.setVideoCodec(13);
-		creator.setFormat("mp4");
+		creator.setFormat(format);
 		creator.setPixelFormat(0);
 		creator.setFrameRate(framerate);
 	}
@@ -91,6 +91,8 @@ public class DynamicVideoCreator {
 				creator.record(frame);
 			} 
 			catch(org.bytedeco.javacv.FrameRecorder.Exception e){
+			}
+			catch(NullPointerException npe){
 			}
 			finally{
 				encodingSemaphore.release();

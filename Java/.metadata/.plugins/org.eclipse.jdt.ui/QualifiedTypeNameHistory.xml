@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.awt.image.SinglePixelPackedSampleModel"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.awt.geom.AffineTransform"/>
 <fullyQualifiedTypeName name="java.awt.image.AffineTransformOp"/>
@@ -16,7 +15,6 @@
 <fullyQualifiedTypeName name="java.nio.FloatBuffer"/>
 <fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_videostab.PyrLkRobustMotionEstimator"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
-<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="java.util.concurrent.locks.Lock"/>
 <fullyQualifiedTypeName name="java.util.concurrent.locks.ReentrantLock"/>
 <fullyQualifiedTypeName name="org.bytedeco.javacv.FrameGrabber.Exception"/>
@@ -47,8 +45,6 @@
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.MedianAnalyzer"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.AlgorithmusController"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
-<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.Conversion"/>
-<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.ImageUtils"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.ImageFormatingUtils"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Deprecated.Stabilizer"/>
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
@@ -60,4 +56,8 @@
 <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.Conversion"/>
+<fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.MRFOptimizer"/>
+<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.ImageUtils"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 </qualifiedTypeNameHistroy>

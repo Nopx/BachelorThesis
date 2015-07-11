@@ -5,12 +5,12 @@ import JolleeB.BachelorT.Utils.Conversion;
 public class MOGAnalyzer {
 	private int imgLength;
 	private float learningRate = 0.003f;
-	private float initialVariance = 30;
-	private float initialWeight = 0.05f;
+	private float initialVariance = 300;
+	private float initialWeight = 0.001f;
 	//TODO THIS DOES NOT MAKE MUCH DIFFERENCE
 	private float maxDistanceFactor = 2.5f;
 	//TODO this is implemented wrong
-	private float backgroundPercentage = 0.7f;
+	private float backgroundPercentage = 0.3f;
 	private int amountGaussian;
 	private float[][] mean;
 	private float[][] variance;

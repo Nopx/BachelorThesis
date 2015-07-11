@@ -28,7 +28,7 @@ public class AlgorithmusController {
 		this.outputFileString = outputFileString;
 	}
 	
-	public void start(String algorithmType,int gaussianAmount)throws IllegalArgumentException, Exception, org.bytedeco.javacv.FrameRecorder.Exception{
+	public void start(String algorithmType,int gaussianAmount, String format)throws IllegalArgumentException, Exception, org.bytedeco.javacv.FrameRecorder.Exception{
 		int frameAmount =1;
 		switch(algorithmType.toLowerCase()){
 		case AlgorithmNames.MEDIANNAME: 
@@ -51,7 +51,7 @@ public class AlgorithmusController {
     	File inputFile = new File(inputFileString);
     	File outputFile = new File(outputFileString);
 		fg = new DynamicFrameGetter(inputFile, frameAmount);
-		vc = new DynamicVideoCreator(outputFile.getAbsolutePath(), fg.getWidth(), fg.getHeight(), fg.getFramerate());
+		vc = new DynamicVideoCreator(outputFile.getAbsolutePath(), fg.getWidth(), fg.getHeight(), fg.getFramerate(), format);
 		vc.start();
 		totalFrames = fg.getFrameAmount();
 		width = fg.getWidth();
@@ -75,8 +75,7 @@ public class AlgorithmusController {
 				gmmMrf();
 				break;
 			case AlgorithmNames.MOGMRFNAME:
-				//TODO make this mrf
-				mog(gaussianAmount);
+				mogMrf(gaussianAmount);
 				break;
 			case AlgorithmNames.SPATIALGMMNAME:
 				spatialgmm();
@@ -170,6 +169,20 @@ public class AlgorithmusController {
 	
 	private void mog(int gaussianAmount){
 		MOGAnalyzer analyzer = new MOGAnalyzer(3*width*height,gaussianAmount);
+		while(fg.hasFrames()){
+			measurer.measure();
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			frame = analyzer.convertImage(frame);
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void mogMrf(int gaussianAmount){
+		MOGAnalyzerMRF analyzer = new MOGAnalyzerMRF(3*width,height,gaussianAmount);
 		while(fg.hasFrames()){
 			measurer.measure();
 			byte[][] framesIn = fg.getNextFrames();
