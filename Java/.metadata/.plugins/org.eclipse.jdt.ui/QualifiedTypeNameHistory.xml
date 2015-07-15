@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.awt.geom.AffineTransform"/>
 <fullyQualifiedTypeName name="java.awt.image.AffineTransformOp"/>
 <fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_video.DenseOpticalFlow"/>
@@ -39,25 +38,26 @@
 <fullyQualifiedTypeName name="java.lang.Runtime"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.Measurer"/>
-<fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.AlgorithmNames"/>
 <fullyQualifiedTypeName name="org.bytedeco.javacv.FrameRecorder"/>
 <fullyQualifiedTypeName name="org.bytedeco.javacv.FrameRecorder.Exception"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.MedianAnalyzer"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.AlgorithmusController"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
-<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.ImageFormatingUtils"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Deprecated.Stabilizer"/>
-<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
-<fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.awt.image.DataBufferByte"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="java.awt.image.WritableRaster"/>
 <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.Conversion"/>
 <fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.MRFOptimizer"/>
-<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.ImageUtils"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.ImageUtils"/>
+<fullyQualifiedTypeName name="JolleeB.BachelorT.Utils.ImageFormatingUtils"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="JolleeB.BachelorT.Algorithmen.AlgorithmNames"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

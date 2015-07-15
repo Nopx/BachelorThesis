@@ -17,7 +17,7 @@ public class MedianAnalyzer {
 				arr[v] = imgsIn[v][i];
 			}
 			Arrays.sort(arr);
-			imgOut[i] = arr[timeMaxIndex];
+			imgOut[i] = arr[(int)Math.floor(timeMaxIndex/2)];
 		}
 		return imgOut;
 	}

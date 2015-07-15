@@ -12,7 +12,6 @@ import java.awt.image.WritableRaster;
 import java.util.concurrent.Semaphore;
 
 import org.bytedeco.javacv.FFmpegFrameRecorder;
-import org.bytedeco.javacv.FrameRecorder.Exception;
 import org.bytedeco.javacv.Java2DFrameConverter;
 
 public class DynamicVideoCreator {
@@ -55,7 +54,7 @@ public class DynamicVideoCreator {
 				creator.record(frame);
 			} 
 			catch(org.bytedeco.javacv.FrameRecorder.Exception e){
-				//TODO
+				System.out.println("Problem while writing Frame to Video.");
 			}
 			finally{
 				encodingSemaphore.release();
@@ -71,7 +70,7 @@ public class DynamicVideoCreator {
 				creator.record(frame);
 			} 
 			catch(org.bytedeco.javacv.FrameRecorder.Exception e){
-				//TODO
+				System.out.println("Problem while writing Frame to Video.");
 			}
 			finally{
 				encodingSemaphore.release();

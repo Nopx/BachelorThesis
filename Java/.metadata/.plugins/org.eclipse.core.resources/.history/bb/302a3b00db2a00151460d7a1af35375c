@@ -1,0 +1,102 @@
+package JolleeB.BachelorT.UI;
+
+import JolleeB.BachelorT.Algorithmen.AlgorithmNames;
+import JolleeB.BachelorT.Algorithmen.AlgorithmusController;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	selfRun("../../Videos/Video_003", 
+    			".avi",
+    			"Test", 
+    			"gmm");
+    	
+    	
+  
+    	
+    }
+    
+    public static void consoleRun(String args[]){
+    	
+    	if(args.length ==0){
+    		System.out.println("Type commands like this: ");
+    		System.out.println("inputfile outputfile method");
+    		System.out.println();
+    		System.out.println("Possible methods are:");
+    		String[] names = AlgorithmNames.possibleNames();
+    		System.out.print(names[0]);
+    		for(int i =0; i < names.length;i++){
+    			System.out.print(", "+names[i]);
+    		}
+    		System.out.println();
+    		System.out.println();
+    		System.out.println("Type \"help\" and a methodname to get additional information,");
+    		System.out.println();
+    		return;
+    	}
+    	if(args[0].equals("help")){
+    		if(args.length ==1){
+    			System.out.println("Type commands like this: ");
+    			System.out.println("inputfile outputfile method");
+    			System.out.println("Possible methods are:");
+    			String[] names = AlgorithmNames.possibleNames();
+    			System.out.print(names[0]);
+    			for(int i =0; i < names.length;i++){
+    				System.out.print(", "+names[i]);
+    			}
+    			System.out.println();
+    			System.out.println();
+    			System.out.println("Type \"help\" and a methodname to get additional information,");
+    			System.out.println();
+    		}
+    		else{
+    			System.out.println(AlgorithmNames.getDescription(args[1]));
+    			System.out.println();
+    		}
+    		return;
+    	}
+    	String inputFileString = args[0];
+    	String fileType = "";
+    	String outputFileString = args[1];
+    	String methodName = args[2];
+    	try {
+    		AlgorithmusController controller = new AlgorithmusController(inputFileString, outputFileString);
+    		controller.start(methodName, 5, fileType);
+    	} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+    		System.out.println("Failed to get Frames, maybe the Video does not exist.");
+    		System.out.println();
+    	} catch (IllegalArgumentException e) {
+    		System.out.println("Invalid Methodname, possible Methodnames are: ");
+    		String[] names = AlgorithmNames.possibleNames();
+    		System.out.print(names[0]);
+    		for(int i =0; i < names.length;i++){
+    			System.out.print(", "+names[i]);
+    		}
+    		System.out.println();
+    		System.out.println();
+    	} catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+    		System.out.println("Failed to write Frames, maybe I can't write to the given location.");
+    		System.out.println();
+    	}
+    	return;
+    }
+    
+    public static void selfRun(String inputFile, String fileType, String outPutSuffix, String method){
+    	String inputFileString = inputFile+fileType;
+    	String outputFileString = inputFile+outPutSuffix+fileType;
+    	try {
+    		AlgorithmusController controller = new AlgorithmusController(inputFileString, outputFileString);
+    		controller.start(method, 5, fileType);
+    	} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+    		System.out.println("FAILED");
+    	} catch (IllegalArgumentException e) {
+    		System.out.println("FAILED");
+    		e.printStackTrace();
+    	} catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+    		System.out.println("FAILED");
+    		e.printStackTrace();
+    	}
+    	return;
+    }
+}

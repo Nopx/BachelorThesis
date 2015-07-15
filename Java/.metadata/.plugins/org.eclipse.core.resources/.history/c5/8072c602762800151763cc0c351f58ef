@@ -1,0 +1,7 @@
+
+public class ImageSubtractor {
+
+	public void main(String args[]){
+		File img1 = new File("");
+	}
+}

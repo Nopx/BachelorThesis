@@ -1,0 +1,103 @@
+package JolleeB.BachelorT.DeEnCoding;
+
+import java.awt.Point;
+import java.awt.Transparency;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.ComponentColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
+import java.util.concurrent.Semaphore;
+
+import org.bytedeco.javacv.FFmpegFrameRecorder;
+import org.bytedeco.javacv.FrameRecorder.Exception;
+import org.bytedeco.javacv.Java2DFrameConverter;
+
+public class DynamicVideoCreator {
+
+	private FFmpegFrameRecorder creator;
+	private Java2DFrameConverter converter = new Java2DFrameConverter();
+	private boolean started = false;
+	private Semaphore encodingSemaphore = new Semaphore(1);
+	private int width;
+	private int height;
+	
+	public DynamicVideoCreator(String fileLocation,int width,int height, double framerate, String format){
+		this.width = width;
+		this.height = height;
+		creator = new FFmpegFrameRecorder(fileLocation,width,height);
+		creator.setVideoCodec(13);
+		creator.setFormat(format);
+		creator.setPixelFormat(0);
+		creator.setFrameRate(framerate);
+	}
+	
+	public void start() throws org.bytedeco.javacv.FrameRecorder.Exception{
+		if(!started) creator.start();
+		started = true;
+	}
+	
+	public void stop() throws org.bytedeco.javacv.FrameRecorder.Exception{
+		creator.stop();
+		started = true;
+	}
+	
+	public boolean isStarted(){
+		return started;
+	}
+	
+	public void encodeFrame(org.bytedeco.javacv.Frame frame){
+		encodingSemaphore.acquireUninterruptibly();
+		Runnable recorder = () -> {
+			try{
+				creator.record(frame);
+			} 
+			catch(org.bytedeco.javacv.FrameRecorder.Exception e){
+				//TODO
+			}
+			finally{
+				encodingSemaphore.release();
+			}};
+		new Thread(recorder).start();
+	}
+	
+	public void encodeImage(BufferedImage image){
+		encodingSemaphore.acquireUninterruptibly();
+		Runnable recorder = () -> {
+			try{
+				org.bytedeco.javacv.Frame frame = converter.convert(image);
+				creator.record(frame);
+			} 
+			catch(org.bytedeco.javacv.FrameRecorder.Exception e){
+				//TODO
+			}
+			finally{
+				encodingSemaphore.release();
+			}};
+		new Thread(recorder).start();
+	}
+	
+	synchronized public void encodeBytes(byte[] image){
+		encodingSemaphore.acquireUninterruptibly();
+		Runnable recorder = () -> {
+			try{
+				ColorModel cm = new ComponentColorModel(ColorModel.getRGBdefault().getColorSpace(), false, true, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
+		        DataBuffer dataBuf = new DataBufferByte(image, image.length);
+		        WritableRaster raster = Raster.createInterleavedRaster(dataBuf, width, height,width*3, 3, new int[]{2, 1, 0}, new Point());
+		        BufferedImage bi =new BufferedImage(cm, raster, false, null);
+				org.bytedeco.javacv.Frame frame = converter.convert(bi);
+				creator.record(frame);
+			} 
+			catch(org.bytedeco.javacv.FrameRecorder.Exception e){
+			}
+			catch(NullPointerException npe){
+			}
+			finally{
+				encodingSemaphore.release();
+			}};
+		Thread t = new Thread(recorder);
+		t.start();
+	}
+}

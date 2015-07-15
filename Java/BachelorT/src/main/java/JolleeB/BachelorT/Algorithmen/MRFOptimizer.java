@@ -35,7 +35,8 @@ public class MRFOptimizer {
 							if(newPos != pos){
 								int diff = (Conversion.byteToInt(img[pos])-Conversion.byteToInt(img[newPos]));
 								diff *= diff;
-								if(diff <=smallestDiff) diff =smallestDiff+1;
+								//if(diff <=smallestDiff) diff =smallestDiff+1;
+								diff+=smallestDiff;
 								distanceSum += 1f/diff;
 								probabilitiesFactorDistance += fieldOut[newPos]*(1f/diff);
 							}
@@ -82,7 +83,8 @@ public class MRFOptimizer {
 							if(newPos != pos){
 								int diff = (Conversion.byteToInt(img[pos])-Conversion.byteToInt(img[newPos]));
 								diff *= diff;
-								if(diff <=smallestDiff) diff =smallestDiff+1;
+								//if(diff <=smallestDiff) diff =smallestDiff+1;
+								diff+=smallestDiff;
 								distanceSum += (1f/diff);
 								probabilitiesFactorDistance += fieldOut[newPos]*((1/diff));
 								

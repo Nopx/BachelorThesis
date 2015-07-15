@@ -8,6 +8,7 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="JolleeB.BachelorT.UI.App"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="Video_003.avi Video_003Test.avi gmm"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="BachelorT"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>

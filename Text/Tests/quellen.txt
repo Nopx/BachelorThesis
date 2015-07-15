@@ -1,0 +1,5 @@
+[1] https://stat.duke.edu/~scs/Courses/Stat376/Papers/GibbsFieldEst/BesagDirtyPicsJRSSB1986.pdf
+Julian Besag
+On the Statistical Analysis of Dirty Pictures, p.274
+[2] http://www.vision.ee.ethz.ch/datasets/index.en.print.html
+Zürich ETH Dataset BWI Walking Pedestrians

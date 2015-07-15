@@ -7,12 +7,12 @@ public class MOGAnalyzerMRF {
 	private int imgWidth;
 	private int imgHeight;
 	private float learningRate = 0.003f;
-	private float initialVariance = 300;
+	private float initialVariance = 90000;
 	private float initialWeight = 0.001f;
 	//TODO THIS DOES NOT MAKE MUCH DIFFERENCE
 	private float maxDistanceFactor = 2.5f;
 	//TODO this is implemented wrong
-	private float backgroundPercentage = 0.3f;
+	private float backgroundPercentage = 0.5f;
 	private int amountGaussian;
 	private float[][] mean;
 	private float[][] variance;

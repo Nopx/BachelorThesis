@@ -1,0 +1,217 @@
+package JolleeB.BachelorT.Algorithmen;
+
+import java.io.File;
+
+import org.bytedeco.javacv.FrameGrabber.Exception;
+
+import JolleeB.BachelorT.DeEnCoding.DynamicFrameGetter;
+import JolleeB.BachelorT.DeEnCoding.DynamicVideoCreator;
+import JolleeB.BachelorT.Utils.ImageUtils;
+
+public class AlgorithmusController {
+
+	public Measurer measurer = new Measurer();
+	private String inputFileString; 
+	private String outputFileString; 
+	private DynamicFrameGetter fg;
+	private DynamicVideoCreator vc;
+	private int totalFrames;
+	private int frameCounter =0;
+	private int width;
+	private int height;
+	
+	private static final int MEDIANFRAMEAMOUNT =100;
+	private static final int SMOOTHINGFRAMEAMOUNT =10;
+	private static final int DIFFERENCINGFRAMEAMOUNT =10;
+	private static final int GMMFRAMEAMOUNT =1;
+	
+	public AlgorithmusController(String inputFileString, String outputFileString) throws Exception{
+		this.inputFileString = inputFileString;
+		this.outputFileString = outputFileString;
+	}
+	
+	public void start(String algorithmType,int gaussianAmount, String format)throws IllegalArgumentException, Exception, org.bytedeco.javacv.FrameRecorder.Exception{
+		int frameAmount =1;
+		switch(algorithmType.toLowerCase()){
+		case AlgorithmNames.MEDIANNAME: 
+			frameAmount = MEDIANFRAMEAMOUNT;
+			break;
+		case AlgorithmNames.SMOOTHINGNAME:
+			frameAmount = SMOOTHINGFRAMEAMOUNT;
+			break;
+		case AlgorithmNames.DIFFERENCINGNAME:
+			frameAmount = 2;
+			break;
+		case AlgorithmNames.GMMNAME:
+		case AlgorithmNames.GMMMRFNAME:
+		case AlgorithmNames.MOGNAME:
+		case AlgorithmNames.MOGMRFNAME:
+		case AlgorithmNames.COPYNAME:
+			frameAmount =GMMFRAMEAMOUNT;
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+    	File inputFile = new File(inputFileString);
+    	File outputFile = new File(outputFileString);
+		fg = new DynamicFrameGetter(inputFile, frameAmount);
+		vc = new DynamicVideoCreator(outputFile.getAbsolutePath(), fg.getWidth(), fg.getHeight(), fg.getFramerate(), format);
+		vc.start();
+		totalFrames = fg.getFrameAmount();
+		width = fg.getWidth();
+		height = fg.getHeight();
+		
+		measurer.startMeasurement();
+		switch(algorithmType.toLowerCase()){
+			case AlgorithmNames.MEDIANNAME: 
+				median();
+				break;
+			case AlgorithmNames.SMOOTHINGNAME:
+				smoothing();
+				break;
+			case AlgorithmNames.DIFFERENCINGNAME:
+				difference();
+				break;
+			case AlgorithmNames.GMMNAME:
+				gmm();
+				break;
+			case AlgorithmNames.MOGNAME:
+				mog(gaussianAmount);
+				break;
+			case AlgorithmNames.GMMMRFNAME:
+				gmmMrf();
+				break;
+			case AlgorithmNames.MOGMRFNAME:
+				mogMrf(gaussianAmount);
+				break;
+			case AlgorithmNames.COPYNAME:
+				copy();
+				break;
+		}
+	}
+	
+	private void difference() {
+		while(fg.hasFrames()){
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame1 = framesIn[framesIn.length-1];
+			byte[] frame2 = framesIn[framesIn.length-2];
+			printPercentage();
+			vc.encodeBytes(ImageUtils.subtractGrayScaleImgByteToByte(frame2, frame1, 0));
+			measurer.measure();
+		}
+		stop();
+	}
+
+	private void printPercentage(){
+		frameCounter++;
+		int percentage = (100*frameCounter/totalFrames);
+		System.out.println(""+percentage+"%");
+	}
+	
+	private void copy(){
+		while(fg.hasFrames()){
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void gmm(){
+		GMMAnalyzer analyzer = new GMMAnalyzer(3*width*height);
+		while(fg.hasFrames()){
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			frame = analyzer.convertImage(frame);
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void gmmMrf(){
+		GMMAnalyzerMRF analyzer = new GMMAnalyzerMRF(3*width,height);
+		while(fg.hasFrames()){
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			frame = analyzer.convertImage(frame);
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void median(){
+		MedianAnalyzer analyzer = new MedianAnalyzer();
+		while(fg.hasFrames()){
+			byte[][] frames = fg.getNextFrames();
+			byte[] frame = analyzer.convertImages(frames);
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void smoothing(){
+		SmoothingAnalyzer analyzer = new SmoothingAnalyzer();
+		while(fg.hasFrames()){
+			byte[][] frames = fg.getNextFrames();
+			byte[] frame = analyzer.convertImages(frames);
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void mog(int gaussianAmount){
+		MOGAnalyzer analyzer = new MOGAnalyzer(3*width*height,gaussianAmount);
+		while(fg.hasFrames()){
+			measurer.measure();
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			frame = analyzer.convertImage(frame);
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void mogMrf(int gaussianAmount){
+		MOGAnalyzerMRF analyzer = new MOGAnalyzerMRF(3*width,height,gaussianAmount);
+		while(fg.hasFrames()){
+			measurer.measure();
+			byte[][] framesIn = fg.getNextFrames();
+			byte[] frame = framesIn[framesIn.length-1];
+			frame = analyzer.convertImage(frame);
+			printPercentage();
+			vc.encodeBytes(frame);
+			measurer.measure();
+		}
+		stop();
+	}
+	
+	private void stop(){
+		try {
+			vc.stop();
+			measurer.stopMeasurement();
+			printmeasurements();
+		} catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+			System.out.println("Failed to Stop Algorithm!");
+		}
+	}
+	
+	private void printmeasurements(){
+		System.out.println("Algorithm completed successfully");
+		System.out.println("Total taken time: "+measurer.getTotalTime());
+		System.out.println("Average taken time per Frame: "+measurer.getAvgTime());
+		System.out.println("Average taken time per Pixel: "+measurer.getAvgTimePerPixel(this.height*this.width));
+		System.out.println("Average used Memory per Frame: "+measurer.getAvgMemoryUsage());
+	}
+}

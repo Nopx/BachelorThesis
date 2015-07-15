@@ -1,0 +1,28 @@
+package JolleeB.BachelorT.UI;
+
+import JolleeB.BachelorT.Algorithmen.AlgorithmusController;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	String inputFile = "../../Videos/Tests/Walkingstudents";
+    	String fileType = ".avi";
+    	String outPutSuffix = "MEDIAN";
+    	String inputFileString = inputFile+fileType;
+    	String outputFileString = inputFile+outPutSuffix+fileType;
+    	try {
+			AlgorithmusController controller = new AlgorithmusController(inputFileString, outputFileString);
+			controller.start("median", 5, fileType);
+		} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+			System.out.println("FAILED");
+		} catch (IllegalArgumentException e) {
+			System.out.println("FAILED");
+			e.printStackTrace();
+		} catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+			System.out.println("FAILED");
+			e.printStackTrace();
+		}
+        return;
+    }
+}

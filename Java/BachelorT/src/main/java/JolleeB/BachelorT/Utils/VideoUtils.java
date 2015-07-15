@@ -74,7 +74,6 @@ public class VideoUtils {
 		int height = framesInput.get(0).getHeight();
 		
 		final byte[][] pixVidIn = new byte[framesInput.size()][width*height];
-		final byte[][] pixVidOut;
 		
 		
 		
@@ -221,7 +220,6 @@ public class VideoUtils {
 	}
 	public static byte[] localMedian(byte[][] imgsIn){
 		int time = imgsIn.length;
-		int timeHalved = (int)Math.floor(time/2);
 		int length = imgsIn[imgsIn.length-1].length;
 		byte[] imgOut = new byte[length];
 		

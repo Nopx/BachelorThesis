@@ -1,0 +1,52 @@
+package JolleeB.BachelorT.UI;
+
+import JolleeB.BachelorT.Algorithmen.AlgorithmusController;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	
+    	
+    	
+//    	String inputFile = "../../Videos/Tests/Walkingstudents";
+//    	String fileType = ".avi";
+//    	String outPutSuffix = "GMMMRF";
+//    	String inputFileString = inputFile+fileType;
+//    	String outputFileString = inputFile+outPutSuffix+fileType;
+//    	try {
+//    		AlgorithmusController controller = new AlgorithmusController(inputFileString, outputFileString);
+//    		controller.start("gmmmrf", 5, fileType);
+//    	} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+//    		System.out.println("FAILED");
+//    	} catch (IllegalArgumentException e) {
+//    		System.out.println("FAILED");
+//    		e.printStackTrace();
+//    	} catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+//    		System.out.println("FAILED");
+//    		e.printStackTrace();
+//    	}
+//    	return;
+    	String inputFileString = args[0];
+    	String fileType = args[0].split(".")[1];
+    	String outputFileString = args[1];
+    	String methodName = args[2];
+    	try {
+			AlgorithmusController controller = new AlgorithmusController(inputFileString, outputFileString);
+			controller.start(methodName, 5, fileType);
+		} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+			System.out.println("FAILED");
+		} catch (IllegalArgumentException e) {
+			System.out.println("FAILED");
+			e.printStackTrace();
+		} catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+			System.out.println("FAILED");
+			e.printStackTrace();
+		}
+        return;
+    }
+    
+    private static void beginningMessage(){
+    	System.out.println("");
+    }
+}

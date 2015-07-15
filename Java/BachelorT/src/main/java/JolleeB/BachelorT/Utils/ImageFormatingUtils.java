@@ -3,8 +3,6 @@ package JolleeB.BachelorT.Utils;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
-import ch.qos.logback.core.pattern.Converter;
-
 public class ImageFormatingUtils {
 
 	public static byte[] bufferedimageToByteArray(BufferedImage bi){

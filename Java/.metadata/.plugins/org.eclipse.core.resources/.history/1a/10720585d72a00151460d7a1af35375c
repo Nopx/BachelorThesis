@@ -1,0 +1,48 @@
+package JolleeB.BachelorT.Algorithmen;
+
+public class AlgorithmNames {
+	public static final String MEDIANNAME = "median";
+	public static final String MEDIANDESCR = "A temporal median filter.";
+	
+	public static final String SMOOTHINGNAME = "smoothing";
+	public static final String SMOOTHINGDESCR = "A temporal smoothing filter";
+	
+	public static final String GMMNAME = "gmm";
+	public static final String GMMDESCR = "A single gaussian distribution statistically modeling the Background \n"
+			+ "for every Pixel according to previous temporal changes.";
+	
+	public static final String GMMMRFNAME = "gmmmrf";
+	public static final String GMMMRFDESCR =  "A single gaussian distribution statistically modeling the Background \n"
+			+ "for every Pixel according to previous temporal changes, \n"
+			+ "with probabilistic Markov Random Field postprocessing";
+	
+	public static final String MOGNAME = "mog";
+	public static final String MOGDESCR =  "Multiple gaussian distributions statistically modeling the Background \n"
+			+ "for every Pixel according to previous temporal changes.";
+	
+	public static final String MOGMRFNAME = "mogmrf";
+	public static final String MOGMRFDESCR =  "Multiple gaussian distributions statistically modeling the Background \n"
+			+ "for every Pixel according to previous temporal changes, \n"
+			+ "with probabilistic Markov Random Field postprocessing";
+	
+	public static final String COPYNAME = "copy";
+	public static final String COPYDESCR = "Copies the Video without changing it";
+	
+	public static final String MOVEMENTVISUALIZENAME = "movement";
+	public static final String MOVEMENTVISUALIZEdESCR = "Visualizes movement in a Video by marking change.";
+	
+	
+	
+	public static String[] possibleNames(){
+		String[] out = new String[8];
+		out[0] = MEDIANNAME;
+		out[1] = SMOOTHINGNAME;
+		out[2] = GMMNAME;
+		out[3] = GMMMRFNAME;
+		out[4] = MOGNAME;
+		out[5] = MOGMRFNAME;
+		out[6] = COPYNAME;
+		out[7] = MOVEMENTVISUALIZENAME;
+		return out;
+	}
+}
